@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>東森寵物 - 門市系統入口網</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+        
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f3f4f6;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .card-interaction {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        @media (min-width: 768px) {
+            .card-interaction:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            }
+        }
+        .card-interaction:active {
+            transform: scale(0.98);
+            background-color: #f9fafb;
+        }
+        
+        .theme-blue { color: #00A0E9; }
+        .bg-theme-blue { background-color: #00A0E9; }
+        .border-theme-blue { border-color: #00A0E9; }
+
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 3px solid #00A0E9;
+            width: 20px;
+            height: 20px;
+            -webkit-animation: spin 1s linear infinite;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header Section -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="bg-theme-blue text-white p-2 rounded-lg">
+                    <i class="fas fa-paw text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold text-gray-800">東森寵物雲</h1>
+                    <p class="text-xs text-gray-500">門市作業中心</p>
+                </div>
+            </div>
+            <div class="text-right hidden sm:block">
+                <div id="clock" class="text-lg font-mono font-bold text-gray-700"></div>
+                <div id="date" class="text-xs text-gray-500"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 py-6 md:py-8">
+        
+        <!-- Welcome Banner -->
+        <div class="bg-gradient-to-r from-sky-400 to-blue-500 rounded-2xl p-6 text-white shadow-lg mb-8 flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+                <h2 class="text-2xl font-bold mb-2">門市系統入口</h2>
+                <p class="opacity-90">請選擇下方系統開始作業，加油！</p>
+            </div>
+            <div class="bg-white/20 p-3 rounded-lg backdrop-blur-sm hidden md:block">
+                <i class="fas fa-network-wired mr-2"></i> System Portal
+            </div>
+        </div>
+
+        <!-- System Links -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            <!-- Link 1: POP Output -->
+            <a href="https://usblue780820.github.io/phonepop/" target="_blank" class="card-interaction bg-white rounded-xl shadow p-6 border-l-4 border-pink-500 group cursor-pointer relative overflow-hidden select-none">
+                <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <i class="fas fa-print text-6xl text-pink-500"></i>
+                </div>
+                <div class="flex flex-col h-full justify-between relative z-10">
+                    <div>
+                        <div class="w-16 h-16 mb-4 flex items-center justify-center pointer-events-none">
+                            <img src="1 (1).ico" alt="POP系統圖示" class="w-full h-full object-contain drop-shadow-md">
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">POP輸出系統</h3>
+                        <p class="text-sm text-gray-500">PhonePop System</p>
+                    </div>
+                    <div class="mt-4 flex items-center text-pink-600 text-sm font-medium">
+                        製作POP <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Link 2: Customer Booking -->
+            <a href="https://usblue780820.github.io/custbooking/" target="_blank" class="card-interaction bg-white rounded-xl shadow p-6 border-l-4 border-green-500 group cursor-pointer relative overflow-hidden select-none">
+                <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <i class="fas fa-clipboard-check text-6xl text-green-500"></i>
+                </div>
+                <div class="flex flex-col h-full justify-between relative z-10">
+                    <div>
+                        <div class="w-16 h-16 mb-4 flex items-center justify-center pointer-events-none">
+                            <img src="2 (1).ico" alt="客訂系統圖示" class="w-full h-full object-contain drop-shadow-md">
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">客訂系統</h3>
+                        <p class="text-sm text-gray-500">Customer Booking</p>
+                    </div>
+                    <div class="mt-4 flex items-center text-green-600 text-sm font-medium">
+                        查詢訂單 <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Link 3: Grooming -->
+            <a href="https://usdeepblue780820.github.io/order/" target="_blank" class="card-interaction bg-white rounded-xl shadow p-6 border-l-4 border-purple-500 group cursor-pointer relative overflow-hidden select-none">
+                <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <i class="fas fa-dog text-6xl text-purple-500"></i>
+                </div>
+                <div class="flex flex-col h-full justify-between relative z-10">
+                    <div>
+                        <div class="w-16 h-16 mb-4 flex items-center justify-center pointer-events-none">
+                            <img src="3 (1).ico" alt="美容系統圖示" class="w-full h-full object-contain drop-shadow-md">
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">美容預約系統</h3>
+                        <p class="text-sm text-gray-500">Grooming System</p>
+                    </div>
+                    <div class="mt-4 flex items-center text-purple-600 text-sm font-medium">
+                        安排美容 <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Link 4: Schedule -->
+            <a href="https://usblue780820.github.io/work/" target="_blank" class="card-interaction bg-white rounded-xl shadow p-6 border-l-4 border-orange-500 group cursor-pointer relative overflow-hidden select-none">
+                <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <i class="fas fa-calendar-alt text-6xl text-orange-500"></i>
+                </div>
+                <div class="flex flex-col h-full justify-between relative z-10">
+                    <div>
+                        <div class="w-16 h-16 mb-4 flex items-center justify-center pointer-events-none">
+                            <img src="4 (1).ico" alt="班表系統圖示" class="w-full h-full object-contain drop-shadow-md">
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">班表(排休)系統</h3>
+                        <p class="text-sm text-gray-500">Shift Schedule</p>
+                    </div>
+                    <div class="mt-4 flex items-center text-orange-600 text-sm font-medium">
+                        查看班表 <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Message Board Area -->
+        <div class="mt-8">
+            <div class="bg-white rounded-xl shadow p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-bold text-gray-800 flex items-center text-lg">
+                        <i class="fas fa-comments text-theme-blue mr-2"></i> 留言板
+                    </h3>
+                    <div class="flex space-x-2">
+                        <button onclick="loadMessages()" class="text-gray-500 hover:text-blue-500 transition p-2" title="重新整理">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                        <button onclick="toggleMessageForm()" class="bg-theme-blue hover:bg-sky-600 active:bg-sky-700 text-white text-sm px-5 py-2.5 rounded-lg transition flex items-center shadow-sm">
+                            <i class="fas fa-plus mr-1"></i> <span class="hidden md:inline">新增留言</span><span class="md:hidden">留言</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Add Message Form -->
+                <div id="addMessageForm" class="hidden mb-6 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                    <h4 class="font-bold text-gray-700 mb-3 text-sm">發表新留言</h4>
+                    <form id="msgForm" onsubmit="submitMessage(event)">
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-3">
+                            <!-- Name -->
+                            <input type="text" name="name" required placeholder="姓名/店別" class="border border-gray-300 rounded px-3 py-3 md:py-2 text-base md:text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 bg-white">
+                            <!-- Type (Added new options) -->
+                            <select name="type" class="border border-gray-300 rounded px-3 py-3 md:py-2 text-base md:text-sm focus:outline-none focus:border-blue-500 bg-white">
+                                <option value="公告">公告</option>
+                                <option value="提醒">提醒</option>
+                                <option value="交辦">交辦</option>
+                                <option value="打氣">打氣</option>
+                                <option value="閒聊">閒聊</option>
+                                <option value="其他">其他</option>
+                            </select>
+                            <!-- Content -->
+                            <input type="text" name="content" required placeholder="請輸入內容..." class="col-span-1 md:col-span-2 border border-gray-300 rounded px-3 py-3 md:py-2 text-base md:text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 bg-white">
+                        </div>
+                        <div class="flex justify-end space-x-2">
+                            <button type="button" onclick="toggleMessageForm()" class="text-gray-500 text-sm px-4 py-2 hover:text-gray-700 active:bg-gray-200 rounded">取消</button>
+                            <button type="submit" id="submitBtn" class="bg-green-500 hover:bg-green-600 active:bg-green-700 text-white text-sm px-6 py-2.5 rounded-lg transition flex items-center shadow-sm">
+                                <span>送出發布</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Message List Container -->
+                <div id="loadingIndicator" class="hidden py-4 flex justify-center">
+                    <div class="loader"></div>
+                </div>
+                <div id="messageList" class="space-y-3 max-h-[400px] overflow-y-auto pr-2">
+                    <div class="text-center text-gray-400 py-4 text-sm">正在從後端讀取資料...</div>
+                </div>
+                
+                <div id="setupHint" class="hidden mt-4 bg-yellow-50 border border-yellow-200 p-3 rounded text-sm text-yellow-800">
+                    <strong>尚未設定後端連結！</strong> 請編輯 HTML 檔案，將 Google Apps Script 發布後的網址填入 <code>SCRIPT_URL</code> 變數中。
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white py-6 mt-auto">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-sm opacity-75">© 2026 東森寵物 | 門市作業中心</p>
+        </div>
+    </footer>
+
+    <script>
+        // SCRIPT_URL: Updated to your current URL. Ensure you update the Apps Script code!
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwjvgUKbgRzszxTnZxdkh8ZSdaj2A_cFDgRTZLR_NYV3eIm8gugaD4iD1v-HB-f0dxIjw/exec"; 
+
+        function updateTime() {
+            const now = new Date();
+            const timeOptions = { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            const dateOptions = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+            document.getElementById('clock').textContent = now.toLocaleTimeString('zh-TW', timeOptions);
+            document.getElementById('date').textContent = now.toLocaleDateString('zh-TW', dateOptions);
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        function toggleMessageForm() {
+            document.getElementById('addMessageForm').classList.toggle('hidden');
+        }
+
+        // --- Logic ---
+
+        function loadMessages() {
+            const listEl = document.getElementById('messageList');
+            const loader = document.getElementById('loadingIndicator');
+            
+            if (!SCRIPT_URL) {
+                listEl.innerHTML = '';
+                document.getElementById('setupHint').classList.remove('hidden');
+                return;
+            }
+
+            loader.classList.remove('hidden');
+            listEl.classList.add('opacity-50');
+
+            fetch(SCRIPT_URL)
+            .then(response => response.json())
+            .then(data => {
+                renderMessages(data);
+                loader.classList.add('hidden');
+                listEl.classList.remove('opacity-50');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                listEl.innerHTML = '<div class="text-center text-red-500 py-4 text-sm">讀取失敗，請檢查網路或更新後端程式</div>';
+                loader.classList.add('hidden');
+                listEl.classList.remove('opacity-50');
+            });
+        }
+
+        function renderMessages(messages) {
+            const listEl = document.getElementById('messageList');
+            listEl.innerHTML = '';
+
+            if (messages.length === 0) {
+                listEl.innerHTML = '<div class="text-center text-gray-400 py-4 text-sm">目前沒有留言，來搶頭香吧！</div>';
+                return;
+            }
+
+            messages.forEach(msg => {
+                const safeType = (msg.type || "").toString().trim();
+                
+                let badgeColor = 'bg-gray-100 text-gray-800';
+                if(safeType === '公告') badgeColor = 'bg-blue-100 text-blue-800';
+                if(safeType === '提醒') badgeColor = 'bg-red-100 text-red-800';
+                if(safeType === '交辦') badgeColor = 'bg-purple-100 text-purple-800';
+                if(safeType === '打氣') badgeColor = 'bg-green-100 text-green-800';
+                // New Colors
+                if(safeType === '閒聊') badgeColor = 'bg-teal-100 text-teal-800';
+                if(safeType === '其他') badgeColor = 'bg-gray-200 text-gray-700';
+
+                let displayTime = msg.time;
+                if(displayTime && displayTime.includes('T')) {
+                    const dateObj = new Date(displayTime);
+                    displayTime = dateObj.toLocaleString('zh-TW', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+                }
+
+                // ID check for deletion
+                const msgId = msg.id || "";
+
+                const html = `
+                    <div class="flex items-start p-3 hover:bg-gray-50 rounded-lg transition border border-transparent hover:border-gray-100 group relative">
+                        <div class="flex-shrink-0 mt-1">
+                            <span class="${badgeColor} text-xs font-semibold px-2.5 py-0.5 rounded">${safeType}</span>
+                        </div>
+                        <div class="ml-3 flex-grow pr-8">
+                            <div class="flex justify-between items-baseline flex-wrap">
+                                <span class="text-sm font-bold text-gray-700 mr-2">${msg.name}</span>
+                                <span class="text-xs text-gray-400">${displayTime}</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-1 whitespace-pre-wrap">${msg.content}</p>
+                        </div>
+                        <!-- Delete Button (Visible on hover on desktop, always there but subtle on mobile) -->
+                        ${msgId ? `
+                        <button onclick="deleteMessage('${msgId}')" class="absolute top-3 right-3 text-gray-300 hover:text-red-500 p-2 transition active:text-red-600 active:scale-95" title="刪除留言">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                        ` : ''}
+                    </div>
+                    <div class="border-t border-gray-100 my-1 last:hidden"></div>
+                `;
+                listEl.insertAdjacentHTML('beforeend', html);
+            });
+        }
+
+        // Action: Create
+        function submitMessage(e) {
+            e.preventDefault(); 
+            if (!SCRIPT_URL) { alert("請先設定 Google Apps Script 網址！"); return; }
+
+            const btn = document.getElementById('submitBtn');
+            const originalText = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<div class="loader" style="width:15px; height:15px; border-width:2px;"></div>';
+
+            const form = document.getElementById('msgForm');
+            const formData = new FormData(form);
+            const params = new URLSearchParams();
+            for (const pair of formData) {
+                params.append(pair[0], pair[1]);
+            }
+            
+            // Add 'action' and 'id'
+            params.append('action', 'create');
+            // Generate a unique ID (Timestamp + Random)
+            const uniqueId = Date.now().toString(36) + Math.random().toString(36).substr(2);
+            params.append('id', uniqueId);
+
+            fetch(SCRIPT_URL, { method: 'POST', body: params })
+            .then(response => {
+                form.reset();
+                toggleMessageForm();
+                setTimeout(loadMessages, 1500); 
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                form.reset();
+                toggleMessageForm();
+                setTimeout(loadMessages, 1500); 
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+            });
+        }
+
+        // Action: Delete
+        function deleteMessage(id) {
+            if(!confirm("確定要刪除這則留言嗎？")) return;
+
+            const loader = document.getElementById('loadingIndicator');
+            const listEl = document.getElementById('messageList');
+            loader.classList.remove('hidden');
+            listEl.classList.add('opacity-50');
+
+            const params = new URLSearchParams();
+            params.append('action', 'delete');
+            params.append('id', id);
+
+            fetch(SCRIPT_URL, { method: 'POST', body: params })
+            .then(response => {
+                setTimeout(loadMessages, 1500); 
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                setTimeout(loadMessages, 1500); 
+            });
+        }
+
+        window.onload = function() {
+            loadMessages();
+        }
+    </script>
+</body>
+</html>
+
